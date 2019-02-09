@@ -9,14 +9,6 @@ firebase.initializeApp({
 var ref = firebase.app().database().ref();
 var usersRef = ref.child('users');
 
-var delayedPush = function (user) {
-  return new Promise(function (resolve, reject) {
-    setTimeout(function () {
-      usersRef.push(user)
-          .then(resolve, reject);
-    }, 1);
-  });
-};
 
 
 let sess;
@@ -24,26 +16,10 @@ router.get('/', function(req, res, next) {
   sess = req.session;
   sess.email = 'orfeas';
   console.log(sess);
-  delayedPush({
+usersRef.push({
     name: 'First User',
     time: (new Date()).getTime()
-  })
-      .then(function() {
-        return delayedPush({
-          name: 'Second User',
-          time: (new Date()).getTime()
-        });
-      })
-      .then(function() {
-        return delayedPush({
-          name: 'Third User',
-          time: (new Date()).getTime()
-        });
-
-      })
-      .catch(function(err) {
-        console.log('error', err);
-      });
+}).then();
   res.render('index', { title: 'Express', info:['orfeas,lida','name'] });
 });
 

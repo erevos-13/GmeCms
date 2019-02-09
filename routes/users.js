@@ -1,11 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const firebase = require("firebase-admin");
-const serviceAccount = require("../serviceAccountKey");
-// firebase.initializeApp({
-//   credential: firebase.credential.cert(serviceAccount),
-//   databaseURL: "https://test-167d1.firebaseio.com"
-// });
+
 var ref = firebase.app().database().ref();
 var usersRef = ref.child('users');
 
